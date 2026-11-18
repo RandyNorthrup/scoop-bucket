@@ -1,42 +1,32 @@
-# Scoop Bucket Template
+# S.A.K. Utility Scoop bucket
 
-<!-- Uncomment the following line after replacing placeholders -->
-<!-- [![Tests](https://github.com/<username>/<bucketname>/actions/workflows/ci.yml/badge.svg)](https://github.com/<username>/<bucketname>/actions/workflows/ci.yml) [![Excavator](https://github.com/<username>/<bucketname>/actions/workflows/excavator.yml/badge.svg)](https://github.com/<username>/<bucketname>/actions/workflows/excavator.yml) -->
+[![Tests](https://github.com/RandyNorthrup/scoop-bucket/actions/workflows/ci.yml/badge.svg)](https://github.com/RandyNorthrup/scoop-bucket/actions/workflows/ci.yml) [![Excavator](https://github.com/RandyNorthrup/scoop-bucket/actions/workflows/excavator.yml/badge.svg)](https://github.com/RandyNorthrup/scoop-bucket/actions/workflows/excavator.yml)
 
-Template bucket for [Scoop](https://scoop.sh), the Windows command-line installer.
+A [Scoop](https://scoop.sh) bucket for [S.A.K. Utility](https://sakutility.com/), a free, open-source, portable Windows toolkit for PC technicians, IT pros, and sysadmins. It combines profile backup and restore, partition management, diagnostics, app deployment and removal, file and network tools, USB image flashing, email archive tools, and optional AI repair workflows.
 
-## How do I use this template?
-
-1. Generate your own copy of this repository with the "Use this template"
-   button.
-2. Allow all GitHub Actions:
-   - Navigate to `Settings` - `Actions` - `General` - `Actions permissions`.
-   - Select `Allow all actions and reusable workflows`.
-   - Then `Save`.
-3. Workflow permissions:
-   - Navigate to `Settings` - `Actions` - `General` - `Workflow permissions`.
-   - Ensure `Read repository contents and packages permissions` is selected.
-   - Then `Save`.
-4. Document the bucket in `README.md`.
-5. Replace the placeholder repository string in `bin/auto-pr.ps1`.
-6. Create new manifests by copying `bucket/app-name.json.template` to
-   `bucket/<app-name>.json`.
-7. Commit and push changes.
-8. If you'd like your bucket to be indexed on `https://scoop.sh`, add the
-   topic `scoop-bucket` to your repository.
-
-## How do I install these manifests?
-
-After manifests have been committed and pushed, run the following:
+## Install
 
 ```pwsh
-scoop bucket add <bucketname> https://github.com/<username>/<bucketname>
-scoop install <bucketname>/<manifestname>
+scoop bucket add sak https://github.com/RandyNorthrup/scoop-bucket
+scoop install sak/sak-utility
 ```
 
-## How do I contribute new manifests?
+Scoop adds an **S.A.K. Utility** entry to the Start menu (under Scoop Apps). Update with `scoop update sak-utility`.
 
-To make a new manifest contribution, please read the [Contributing
-Guide](https://github.com/ScoopInstaller/.github/blob/main/.github/CONTRIBUTING.md)
-and [App Manifests](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests)
-wiki page.
+## What the manifest does
+
+- Downloads the official release ZIP from [GitHub Releases](https://github.com/RandyNorthrup/S.A.K.-Utility/releases) and checks it against the SHA-256 in the release's `SHA256SUMS.txt`. The programs inside are signed by Randy Northrup.
+- Persists the app's `data` folder (settings, logs and reports) in `~\scoop\persist\sak-utility\data`, so it survives updates.
+- Picks up new releases on its own: a scheduled workflow checks for a new GitHub release every 4 hours and updates the version, URL and hash.
+
+## Requirements
+
+64-bit Windows 11. Windows 10 version 1809 or later meets the minimum requirements but is not part of release testing. The app runs as a standard user and asks for administrator rights when a task needs them.
+
+## Help
+
+- How to use the app: the [wiki](https://sakutility.com/wiki).
+- Problems with the app: [open an issue](https://github.com/RandyNorthrup/S.A.K.-Utility/issues) in its repository.
+- Problems with this bucket: open an issue here.
+
+S.A.K. Utility is licensed under the GNU Affero General Public License v3.0. The files in this bucket are released into the public domain ([LICENSE](LICENSE)).
